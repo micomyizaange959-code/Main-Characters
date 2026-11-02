@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusMarket | Your Campus Marketplace</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #f5f7fb;
+            color: #172b4d;
+        }
+
+        /* NAVIGATION */
+        header {
+            background: #102a43;
+            color: white;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            color: #f4b942;
+        }
+
+        nav {
+            display: flex;
+            gap: 22px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            color: #f4b942;
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 480px;
+            padding: 70px 8%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 35px;
+            background: linear-gradient(120deg, #102a43, #176b87);
+            color: white;
+        }
+
+        .hero-content {
+            max-width: 570px;
+        }
+
+        .hero-content small {
+            color: #f4b942;
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+
+        .hero h1 {
+            font-size: clamp(35px, 5vw, 58px);
+            margin: 20px 0;
+        }
+
+        .hero h1 span {
+            color: #f4b942;
+        }
+
+        .hero p {
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #f4b942;
+            color: #102a43;
+            padding: 14px 25px;
+            border-radius: 7px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .hero-image {
+            width: 43%;
+            max-width: 480px;
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: 18px;
+            box-shadow: 0 15px 35px #0005;
+        }
+
+        /* GENERAL SECTIONS */
+        section {
+            padding: 65px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .section-title h2 {
+            font-size: 32px;
+            margin-bottom: 12px;
+            color: #102a43;
+        }
+
+        .section-title p {
+            color: #64748b;
+        }
+
+        /* ABOUT */
+        .about {
+            background: white;
+            text-align: center;
+        }
+
+        .about p {
+            max-width: 800px;
+            margin: auto;
+            line-height: 1.9;
+            color: #526579;
+        }
+
+        /* PRODUCTS */
+        .marketplace {
+            background: #f5f7fb;
+        }
+
+        .categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .categories button {
+            padding: 10px 18px;
+            border: 1px solid #176b87;
+            background: white;
+            color: #176b87;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+
+        .categories button.active,
+        .categories button:hover {
+            background: #176b87;
+            color: white;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 13px;
+            overflow: hidden;
+            box-shadow: 0 5px 18px #00000012;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-7px);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 18px;
+        }
+
+        .product-info h3 {
+            margin-bottom: 9px;
+        }
+
+        .product-info p {
+            color: #176b87;
+            font-weight: bold;
+        }
+
+        .click-hint {
+            display: block;
+            color: #718096;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+
+        /* SERVICES */
+        .services {
+            background: white;
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 22px;
+        }
+
+        .service-card {
+            background: #f5f7fb;
+            padding: 28px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .service-card .emoji {
+            font-size: 35px;
+            margin-bottom: 15px;
+        }
+
+        .service-card p {
+            color: #64748b;
+            line-height: 1.6;
+            margin-top: 10px;
+        }
+
+        /* TOOLS */
+        .tools {
+            background: #eef3f8;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .tool-card {
+            background: white;
+            padding: 25px;
+            border-radius: 14px;
+            box-shadow: 0 5px 18px #00000010;
+        }
+
+        .tool-card h3 {
+            text-align: center;
+            margin-bottom: 18px;
+        }
+
+        .calc-display {
+            width: 100%;
+            padding: 16px;
+            font-size: 23px;
+            text-align: right;
+            border: 1px solid #ccd5df;
+            border-radius: 7px;
+            margin-bottom: 12px;
+        }
+
+        .calc-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .calc-buttons button {
+            padding: 14px 5px;
+            border: none;
+            border-radius: 6px;
+            background: #e8eef5;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .calc-buttons button:hover {
+            background: #d1deeb;
+        }
+
+        .calc-buttons .operator {
+            background: #dcecf3;
+            color: #075985;
+        }
+
+        .calc-buttons .equals {
+            background: #176b87;
+            color: white;
+        }
+
+        .calc-buttons .clear {
+            background: #fce1df;
+            color: #b42318;
+        }
+
+        /* FEEDBACK */
+        .feedback {
+            background: white;
+        }
+
+        .feedback-container {
+            max-width: 750px;
+            margin: auto;
+        }
+
+        .feedback-container input,
+        .feedback-container select,
+        .feedback-container textarea {
+            width: 100%;
+            padding: 14px;
+            margin: 10px 0;
+            border: 1px solid #ccd5df;
+            border-radius: 7px;
+        }
+
+        .feedback-container textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            padding: 13px 28px;
+            background: #176b87;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* CONTACT */
+        .contact {
+            background: #102a43;
+            color: white;
+            text-align: center;
+        }
+
+        .contact h2 {
+            margin-bottom: 15px;
+        }
+
+        .contact p {
+            line-height: 1.9;
+            color: #dbeafe;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #091b2b;
+            color: white;
+            text-align: center;
+            padding: 22px;
+        }
+
+        /* PRODUCT POPUP */
+        .popup {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: #0009;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            z-index: 1000;
+        }
+
+        .popup-content {
+            background: white;
+            padding: 25px;
+            border-radius: 14px;
+            max-width: 380px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+        }
+
+        .popup-content img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        .popup-content h2 {
+            margin: 10px 0;
+        }
+
+        .popup-price {
+            color: #087f5b;
+            font-size: 25px;
+            font-weight: bold;
+            margin: 12px;
+        }
+
+        .close {
+            position: absolute;
+            right: 18px;
+            top: 10px;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        /* MOBILE */
+        @media(max-width: 750px) {
+            header {
+                justify-content: center;
+            }
+
+            nav {
+                justify-content: center;
+            }
+
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-image {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="logo">CampusMarket.</div>
+        <nav>
+            <a href="#home">HOME</a>
+            <a href="#about">ABOUT US</a>
+            <a href="#marketplace">PRODUCTS</a>
+            <a href="#services">SERVICES</a>
+            <a href="#tools">CALCULATORS</a>
+            <a href="#feedback">FEEDBACK</a>
+            <a href="#contact">CONTACT US</a>
+        </nav>
+    </header>
+
+    <!-- HOME -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <small>YOUR CAMPUS MARKETPLACE</small>
+            <h1>WELCOME TO <span>CAMPUSMARKET</span></h1>
+            <p>
+                Your Campus. Your Market. Your Choice.
+                Discover fashionable clothes, beautiful watches,
+                bags, shoes and other products at affordable prices.
+            </p>
+            <a href="#marketplace" class="btn">EXPLORE PRODUCTS →</a>
+        </div>
+
+        <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=900" alt="Shopping marketplace">
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about" id="about">
+        <div class="section-title">
+            <h2>ABOUT CAMPUSMARKET</h2>
+            <p>Making shopping easier for everyone.</p>
+        </div>
+
+        <p>
+            CampusMarket is a student-focused online marketplace
+            designed to make it easier to discover and explore
+            different products. We bring together fashion, accessories,
+            bags, shoes and everyday essentials in one convenient place.
+            Our goal is to make product discovery simple and enjoyable.
+        </p>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section class="marketplace" id="marketplace">
+        <div class="section-title">
+            <h2>EXPLORE OUR PRODUCTS</h2>
+            <p>Click on any product to discover its price.</p>
+        </div>
+
+        <div class="categories">
+            <button class="active" data-category="all">All Products</button>
+            <button data-category="clothes">Clothes</button>
+            <button data-category="watches">Watches</button>
+            <button data-category="bags">Bags</button>
+            <button data-category="shoes">Shoes</button>
+            <button data-category="accessories">Accessories</button>
+        </div>
+
+        <div class="product-grid">
+
+            <div class="product-card" data-category="clothes" data-name="Classic T-Shirt" data-price="8,000 RWF">
+                <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600" alt="T-shirt">
+                <div class="product-info">
+                    <h3>Classic T-Shirt</h3>
+                    <p>Clothing</p>
+                    <span class="click-hint">Click to view price →</span>
+                </div>
+            </div>
+
+            <div class="product-card" data-category="clothes" data-name="Fashion Jeans" data-price="18,000 RWF">
+                <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?w=600" alt="Jeans">
+                <div class="product-info">
+                    <h3>Fashion Jeans</h3>
+                    <p>Clothing</p>
+                    <span class="click-hint">Click to view price →</span>
+                </div>
+            </div>
+
+            <div class="product-card" data-category="watches" data-name="Classic Wrist Watch" data-price="15,000 RWF">
+                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600" alt="Watch">
+                <div class="product-info">
+                    <h3>Classic Wrist Watch</h3>
+                    <p>Watches</p>
+                    <span class="click-hint">Click to view price →</span>
+                </div>
+            </div>
+
+            <div class="product-card" data-category="bags" data-name="Fashion Handbag" data-price="12,000 RWF">
+                <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600" alt="Handbag">
+                <div class="product-info">
+                    <h3>Fashion Handbag</h3>
+                    <p>Bags</p>
+                    <span class="click-hint">Click to view price →</span>
+                </div>
+            </div>
+
+            <div class="product-card" data-category="shoes" data-name="Sport Sneakers" data-price="25,000 RWF">
+                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600" alt="Sneakers">
+                <div class="product-info">
+                    <h3>Sport Sneakers</h3>
+                    <p>Shoes</p>
+                    <span class="click-hint">Click to view price →</span>
+                </div>
+            </div>
+
+            <div class="product-card" data-category="bags" data-name="Student Backpack" data-price="14,000 RWF">
+                <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600" alt="Backpack">
+                <div class="product-info">
+                    <h3>Student Backpack</h3>
+                    <p>Bags</p>
+                    <span class="click-hint">Click to view price →</span>
+                </div>
+            </div>
+
+            <div class="product-card" data-category="accessories" data-name="Sunglasses" data-price="7,000 RWF">
+                <img src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600" alt="Sunglasses">
+                <div class="product-info">
+                    <h3>Fashion Sunglasses</h3>
+                    <p>Accessories</p>
+                    <span class="click-hint">Click to view price →</span>
+                </div>
+            </div>
+
+            <div class="product-card" data-category="accessories" data-name="Headphones" data-price="20,000 RWF">
+                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600" alt="Headphones">
+                <div class="product-info">
+                    <h3>Headphones</h3>
+                    <p>Accessories</p>
+                    <span class="click-hint">Click to view price →</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- PRODUCT POPUP -->
+    <div class="popup" id="productPopup">
+        <div class="popup-content">
+            <span class="close" id="closePopup">&times;</span>
+            <img id="popupImage" src="" alt="Selected product">
+            <h2 id="popupName"></h2>
+            <p>Product price:</p>
+            <div class="popup-price" id="popupPrice"></div>
+            <p>Thank you for visiting CampusMarket!</p>
+        </div>
+    </div>
+
+    <!-- SERVICES -->
+    <section class="services" id="services">
+        <div class="section-title">
+            <h2>OUR SERVICES</h2>
+            <p>What CampusMarket offers.</p>
+        </div>
+
+        <div class="service-grid">
+            <div class="service-card">
+                <div class="emoji">🛍️</div>
+                <h3>Product Discovery</h3>
+                <p>Explore different products and discover items you like.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="emoji">💰</div>
+                <h3>Affordable Choices</h3>
+                <p>Compare displayed prices before choosing a product.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="emoji">🤝</div>
+                <h3>Student Marketplace</h3>
+                <p>A place where students can discover products and opportunities.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- BOTH CALCULATORS -->
+    <section class="tools" id="tools">
+        <div class="section-title">
+            <h2>OUR CALCULATORS</h2>
+            <p>Useful calculation tools in one place.</p>
+        </div>
+
+        <div class="tools-grid">
+
+            <!-- SIMPLE CALCULATOR -->
+            <div class="tool-card">
+                <h3>Simple Calculator</h3>
+
+                <input class="calc-display" id="simpleDisplay" type="text" placeholder="0" readonly>
+
+                <div class="calc-buttons">
+                    <button class="clear" onclick="clearCalc('simpleDisplay')">AC</button>
+                    <button onclick="deleteLast('simpleDisplay')">DEL</button>
+                    <button class="operator" onclick="addValue('simpleDisplay','%')">%</button>
+                    <button class="operator" onclick="addValue('simpleDisplay','/')">÷</button>
+
+                    <button onclick="addValue('simpleDisplay','7')">7</button>
+                    <button onclick="addValue('simpleDisplay','8')">8</button>
+                    <button onclick="addValue('simpleDisplay','9')">9</button>
+                    <button class="operator" onclick="addValue('simpleDisplay','*')">×</button>
+
+                    <button onclick="addValue('simpleDisplay','4')">4</button>
+                    <button onclick="addValue('simpleDisplay','5')">5</button>
+                    <button onclick="addValue('simpleDisplay','6')">6</button>
+                    <button class="operator" onclick="addValue('simpleDisplay','-')">−</button>
+
+                    <button onclick="addValue('simpleDisplay','1')">1</button>
+                    <button onclick="addValue('simpleDisplay','2')">2</button>
+                    <button onclick="addValue('simpleDisplay','3')">3</button>
+                    <button class="operator" onclick="addValue('simpleDisplay','+')">+</button>
+
+                    <button onclick="addValue('simpleDisplay','0')">0</button>
+                    <button onclick="addValue('simpleDisplay','00')">00</button>
+                    <button onclick="addValue('simpleDisplay','.')">.</button>
+                    <button class="equals" onclick="calculate('simpleDisplay',false)">=</button>
+                </div>
+            </div>
+
+            <!-- SCIENTIFIC CALCULATOR -->
+            <div class="tool-card">
+                <h3>Scientific Calculator</h3>
+
+                <input class="calc-display" id="scientificDisplay" type="text" placeholder="0">
+
+                <div class="calc-buttons">
+                    <button class="clear" onclick="clearCalc('scientificDisplay')">AC</button>
+                    <button onclick="deleteLast('scientificDisplay')">DEL</button>
+                    <button onclick="addValue('scientificDisplay','(')">(</button>
+                    <button onclick="addValue('scientificDisplay',')')">)</button>
+
+                    <button onclick="addValue('scientificDisplay','sin(')">sin</button>
+                    <button onclick="addValue('scientificDisplay','cos(')">cos</button>
+                    <button onclick="addValue('scientificDisplay','tan(')">tan</button>
+                    <button onclick="addValue('scientificDisplay','sqrt(')">√</button>
+
+                    <button onclick="addValue('scientificDisplay','log(')">log</button>
+                    <button onclick="addValue('scientificDisplay','ln(')">ln</button>
+                    <button onclick="addValue('scientificDisplay','^')">xʸ</button>
+                    <button onclick="addValue('scientificDisplay','pi')">π</button>
+
+                    <button onclick="addValue('scientificDisplay','7')">7</button>
+                    <button onclick="addValue('scientificDisplay','8')">8</button>
+                    <button onclick="addValue('scientificDisplay','9')">9</button>
+                    <button class="operator" onclick="addValue('scientificDisplay','/')">÷</button>
+
+                    <button onclick="addValue('scientificDisplay','4')">4</button>
+                    <button onclick="addValue('scientificDisplay','5')">5</button>
+                    <button onclick="addValue('scientificDisplay','6')">6</button>
+                    <button class="operator" onclick="addValue('scientificDisplay','*')">×</button>
+
+                    <button onclick="addValue('scientificDisplay','1')">1</button>
+                    <button onclick="addValue('scientificDisplay','2')">2</button>
+                    <button onclick="addValue('scientificDisplay','3')">3</button>
+                    <button class="operator" onclick="addValue('scientificDisplay','-')">−</button>
+
+                    <button onclick="addValue('scientificDisplay','0')">0</button>
+                    <button onclick="addValue('scientificDisplay','.')">.</button>
+                    <button onclick="addValue('scientificDisplay','e')">e</button>
+                    <button class="operator" onclick="addValue('scientificDisplay','+')">+</button>
+
+                    <button class="equals" style="grid-column: span 4"
+                        onclick="calculate('scientificDisplay',true)">CALCULATE =</button>
+                </div>
+                <p style="font-size:12px;color:#64748b;margin-top:12px">
+                    Trigonometric functions use degrees.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FEEDBACK -->
+    <section class="feedback" id="feedback">
+        <div class="section-title">
+            <h2>SHARE YOUR FEEDBACK</h2>
+            <p>Tell us about your experience with CampusMarket.</p>
+        </div>
+
+        <div class="feedback-container">
+            <form id="feedbackForm">
+                <input type="text" id="customerName" placeholder="Enter your name" required>
+
+                <select id="feedbackType" required>
+                    <option value="">Select feedback type</option>
+                    <option>Suggestion</option>
+                    <option>Complaint</option>
+                    <option>Question</option>
+                    <option>General feedback</option>
+                </select>
+
+                <textarea id="feedbackMessage" placeholder="Write your feedback here..." required></textarea>
+
+                <button type="submit" class="submit-btn">SEND FEEDBACK</button>
+                <p id="feedbackResult" style="margin-top:15px"></p>
+            </form>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact" id="contact">
+        <h2>CONTACT US</h2>
+        <p>We would love to hear from you.</p>
+        <p>Email: campusmarket@example.com</p>
+        <p>Location: Rwanda</p>
+    </section>
+
+    <footer>
+        <p>© 2026 CampusMarket. All Rights Reserved.</p>
+        <p>Your Campus. Your Market. Your Choice.</p>
+    </footer>
+
+    <script>
+
+        /* PRODUCT POPUP */
+        const productCards = document.querySelectorAll(".product-card");
+        const popup = document.getElementById("productPopup");
+
+        productCards.forEach(card => {
+            card.addEventListener("click", () => {
+                document.getElementById("popupName").textContent =
+                    card.dataset.name;
+
+                document.getElementById("popupPrice").textContent =
+                    card.dataset.price;
+
+                document.getElementById("popupImage").src =
+                    card.querySelector("img").src;
+
+                popup.style.display = "flex";
+            });
+        });
+
+        document.getElementById("closePopup").onclick = () => {
+            popup.style.display = "none";
+        };
+
+        popup.addEventListener("click", event => {
+            if (event.target === popup) {
+                popup.style.display = "none";
+            }
+        });
+
+        /* PRODUCT CATEGORY FILTER */
+        document.querySelectorAll(".categories button").forEach(button => {
+            button.addEventListener("click", () => {
+                document.querySelectorAll(".categories button")
+                    .forEach(btn => btn.classList.remove("active"));
+
+                button.classList.add("active");
+
+                const category = button.dataset.category;
+
+                productCards.forEach(card => {
+                    card.style.display =
+                        category === "all" ||
+                            card.dataset.category === category
+                            ? "block" : "none";
+                });
+            });
+        });
+
+        /* CALCULATOR BUTTONS */
+        function addValue(id, value) {
+            document.getElementById(id).value += value;
+        }
+
+        function clearCalc(id) {
+            document.getElementById(id).value = "";
+        }
+
+        function deleteLast(id) {
+            const display = document.getElementById(id);
+            display.value = display.value.slice(0, -1);
+        }
+
+        /* MATHEMATICAL EXPRESSION PARSER */
+        function solveExpression(expression, scientific) {
+            const tokens = expression.match(
+                /(?:\d+\.?\d*|\.\d+)|[a-zA-Z]+|[+\-*/^()%]/g
+            );
+
+            if (!tokens || tokens.join("") !== expression.replace(/\s/g, "")) {
+                throw new Error("Invalid expression");
+            }
+
+            let position = 0;
+
+            function peek() {
+                return tokens[position];
+            }
+
+            function take() {
+                return tokens[position++];
+            }
+
+            function expressionRule() {
+                let value = term();
+
+                while (peek() === "+" || peek() === "-") {
+                    const operator = take();
+                    const right = term();
+                    value = operator === "+" ? value + right : value - right;
+                }
+
+                return value;
+            }
+
+            function term() {
+                let value = power();
+
+                while (peek() === "*" || peek() === "/" || peek() === "%") {
+                    const operator = take();
+                    const right = power();
+
+                    if (operator === "*") value *= right;
+                    if (operator === "/") value /= right;
+                    if (operator === "%") value %= right;
+                }
+
+                return value;
+            }
+
+            function power() {
+                let value = unary();
+
+                if (peek() === "^") {
+                    take();
+                    value = Math.pow(value, power());
+                }
+
+                return value;
+            }
+
+            function unary() {
+                if (peek() === "-") {
+                    take();
+                    return -unary();
+                }
+
+                if (peek() === "+") {
+                    take();
+                    return unary();
+                }
+
+                return primary();
+            }
+
+            function primary() {
+                const token = take();
+
+                if (token === "(") {
+                    const value = expressionRule();
+
+                    if (take() !== ")") throw new Error("Missing bracket");
+                    return value;
+                }
+
+                if (!isNaN(Number(token))) return Number(token);
+
+                if (token === "pi" && scientific) return Math.PI;
+                if (token === "e" && scientific) return Math.E;
+
+                if (scientific &&
+                    ["sin", "cos", "tan", "sqrt", "log", "ln"].includes(token)) {
+
+                    if (take() !== "(") throw new Error("Missing bracket");
+
+                    const value = expressionRule();
+
+                    if (take() !== ")") throw new Error("Missing bracket");
+
+                    if (token === "sin") return Math.sin(value * Math.PI / 180);
+                    if (token === "cos") return Math.cos(value * Math.PI / 180);
+                    if (token === "tan") return Math.tan(value * Math.PI / 180);
+                    if (token === "sqrt") return Math.sqrt(value);
+                    if (token === "log") return Math.log10(value);
+                    if (token === "ln") return Math.log(value);
+                }
+
+                throw new Error("Invalid input");
+            }
+
+            const answer = expressionRule();
+
+            if (position !== tokens.length || !Number.isFinite(answer)) {
+                throw new Error("Invalid calculation");
+            }
+
+            return answer;
+        }
+
+        function calculate(id, scientific) {
+            const display = document.getElementById(id);
+
+            try {
+                const result = solveExpression(display.value, scientific);
+                display.value = Number(result.toPrecision(10));
+            } catch (error) {
+                display.value = "Error";
+            }
+        }
+
+        /* FEEDBACK FORM DEMO */
+        document.getElementById("feedbackForm").addEventListener("submit", event => {
+            event.preventDefault();
+
+            const name = document.getElementById("customerName").value;
+
+            document.getElementById("feedbackResult").textContent =
+                "Thank you, " + name + "! Your feedback has been recorded for this demo.";
+
+            event.target.reset();
+        });
+
+    </script>
+
+</body>
+
+</html>
